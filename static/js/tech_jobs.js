@@ -1,4 +1,4 @@
-urlstring='static/data/data.txt'
+urlstring='/readData'
 
 Plotly.d3.json(urlstring, function(err, rows){
 

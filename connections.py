@@ -1,15 +1,19 @@
 import sys
+import os
 import pandas as pd
-import pymongo
 import csv
-import json
-# from config import mongo_username, mongo_password
 from pymongo import MongoClient
-from flask import Flask, jsonify, render_template
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Access environment variables
+username = os.getenv("jc_mongo_username")
+password = os.getenv("jc_mongo_password")
 
 #cloud mongo connect
 cloudMClnt = MongoClient()
-cloudMClnt = MongoClient("mongodb+srv://" + "keana-m" + ":" + "Techwars!" + "@cluster0.4xbnr.mongodb.net/<dbname>?retryWrites=true&w=majority")
+cloudMClnt = MongoClient("mongodb+srv://" + username + ":" + password + "@techdata.hvqxz.mongodb.net/<dbname>?retryWrites=true&w=majority")
 
 def cloud_collection(database, collection):
     # Read mongo database 
@@ -37,9 +41,9 @@ def readMongoCloud(database,collection):
     db_c = cloud_collection(database,collection)
 
     # Read collection to a pandas dataframe
-    db_df = pd.DataFrame(list(db_c.find().sort([
+    db_df = pd.DataFrame(db_c.find().sort([
         ('ID',1)
-    ])))
+    ]))
 
     del db_df['_id']
     return db_df

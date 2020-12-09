@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Moderna Bootstrap Template - Index</title>
+  <title>nextTech - Your next Start-Up</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -32,6 +32,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" 
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" 
   crossorigin="" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" 
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" 
+    crossorigin=""></script>
 
   <!-- =======================================================
   * Template Name: Moderna - v2.1.0
@@ -78,19 +83,14 @@
       <div class="carousel-item active">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Tech Hub <span>Prediction</span></h2>
-          <form class="animate__animated animate__fadeInUp" action="{{ url_for('predict')}}"method="POST">
-            <input class="animate__animated animate__fadeInUp" type="text" name="zipcode input" placeholder="Zipcode Input" required="required" />
+          <!-- <form class="animate__animated animate__fadeInUp" action="{{ url_for('predict')}}"method="POST"> -->
+            <<form class="animate__animated animate__fadeInUp" form name="myform" onSubmit="return handleClick()" action="{{ url_for('predict')}}"method="POST">
+            <input class="animate__animated animate__fadeInUp" type="text" id="USERINPUT" name="zipcode input" placeholder="Zipcode Input" required="required" />
             <!-- <a class="btn-get-started animate__animated animate__fadeIn" onClick="document.getElementById('middle').scrollIntoView({behavior: 'smooth'});">Submit</a> -->
             <button type="submit" class="btn-get-started animate__animated animate__fadeIn">
               Check Status
             </button>
-            <br>
-          <p style= "color:white">
-            {% for result in prediction_text %}
-            {{ result }}<br>
-            {% endfor %}
-          </p>
-
+          </form>
         </div>
       </div>
     </div>
@@ -100,6 +100,12 @@
 
 <!-- ======= TABLE AND LEAFLET ======= -->
 <div id = middle>
+  {% if scroll %}
+  <script>
+      document.location.hash = '#' + '{{ scroll }}';
+  </script>
+  {% endif %}
+  
         <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
           
           <div class="container">
@@ -111,8 +117,7 @@
     
               <div class="col-lg-12 d-flex flex-column justify-content-center p-5">
     
-                <table class="table table-sm" style="font-size: 10px;">
-                  <thead>
+                <table class="table" style="font-size: 15px;">
                     <tr>
                       <th scope="col">Status</th>
                       <th scope="col">City,State</th>
@@ -123,17 +128,43 @@
                       <th scope="col">Median Age Female</th>
                       <th scope="col">Median Age Male</th>
                     </tr>
-                  </thead>
-                  <tbody>
+
                     <tr>
-                      {% for result in prediction_text %}
+                      {% for result in prediction_text%}
                       <td>{{ result }}</td>
                       {% endfor %}
                     </tr>
-                  </tbody>
                 </table>
-  
+
                 <div id ="map" style="width: 95%; height: 100%; padding: 150px; margin: 15px; position: center"></div>
+
+                <script>
+
+                  function default_map(coordinates) {
+  
+                  var map = L.map("map", {
+                      center: coordinates,
+                      zoom: 12
+                  });
+  
+                  // Adding tile layer
+                  L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+                      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+                      tileSize: 512,
+                      maxZoom: 20,
+                      zoomOffset: -1,
+                      id: "mapbox/streets-v11",
+                      accessToken: "pk.eyJ1Ijoiam9zaHVham9ubWUiLCJhIjoiY2tmcHlyeTllMDBsdjJzcWw5MnJtYnF2dSJ9.dyS8tMHNg1m8QpV3_eAwOA"
+                  }).addTo(map);
+
+                  L.marker(coordinates).addTo(map);
+
+                  return map
+                  }
+  
+                  default_map({{ coordinates }})
+  
+                  </script>
   
               </div>
             </div>
@@ -254,19 +285,11 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-    <!-- API key -->
-    <script type="text/javascript" src="../static/js/config.js"></script>
-    
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" 
-    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" 
-    crossorigin=""></script>
-  
     <!-- D3 CDN -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     
     <!-- JS -->
-    <script type="text/javascript" src="../static/js/ML_map.js"></script>
+    <!-- <script type="text/javascript" src="../static/js/ML_map.js"></script> -->
 
     <!-- Vendor JS Files -->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
