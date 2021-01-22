@@ -69,23 +69,16 @@
       </div>
     </header><!-- End Header -->
 
+ 
   <!-- Map -->
   <div id="map"></div>
-  <h5>Top Tech Hub Cities of 2020:</h5>
+  <h5>Tech Hub Cities 2019:</h5>
   <select id="selDataset" onchange="optionChanged(this.value)">
-    <option value="Austin, TX">#1 Austin, TX</option>
-    <option value="Dallas, TX">#2 Dallas, TX</option>
-    <option value="Raleigh, NC">#3 Raleigh, NC</option>
-    <option value="San Jose, CA">#4 San Jose, CA</option>
-    <option value="Charlotte, NC">#5 Charlotte, NC</option>
-    <option value="Seattle, WA">#6 Seattle, WA</option>
-    <option value="San Francisco, CA">#7 San Francisco, CA</option>
-    <option value="Atlanta, GA">#8 Atlanta, GA</option>
-    <option value="Huntsville, Al">#9 Huntsville, Al</option>
-    <option value="Denver, CO">#10 Denver, CO</option>
-    <option value="New York, NY">New York, NY</option>
-    <option value="Boston, MA">Boston, MA</option>
-    <option value="Trenton, NJ">Trenton, NJ</option>
+    <option value="nyc">New York City</option>
+    <option value="chicago">Chicago</option>
+    <option value="austin">Austin</option>
+    <option value="san francisco">San Francisco</option>
+  
   </select> 
 
   <!-- ======= Footer ======= -->
@@ -106,7 +99,9 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-   <!-- Leaflet JS -->
+    <!-- API key -->
+    <script type="text/javascript" src="../static/js/config.js"></script>
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" 
     integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" 
     crossorigin=""></script>

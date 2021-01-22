@@ -4,6 +4,8 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 from io import StringIO
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -52,4 +54,25 @@ def s3_upload(df):
         print("The file was not found")
     except NoCredentialsError:
         print("Credentials not available")
+
+
+### UNCOMMENT TO LOAD CENSUS DATA
+# year = "2018"
+# dataset = "acs/acs5"
+# tables = {"B19301_001E":"Income per capita",
+#                 "B01002_002E":"Median Age Male",
+#                 "B01002_003E":"Median Age Female",
+#                 "B15003_022E":"Bachelor's degree > 25", 
+#                 "B15003_001E":"Total Education",
+#                 "B25077_001E":"Median Home Value",
+#                 "B08301_010E":"Public transportation",
+#                 "B08301_001E":"Total transportation"}
+
+# # Call census web API to extract data into a df
+# df = census_api_df(year, dataset, tables)
+
+# # Upload data to an s3 bucket
+# s3_upload(df)
+
+# df.head()
 

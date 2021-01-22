@@ -27,13 +27,14 @@ def predict():
 
 
     ## Code to call all the feature values for the requested zip code
-    df = pd.read_csv("https://techhubml.s3.amazonaws.com/Master.csv", encoding="ISO-8859-1", converters={'zipcode': lambda x: str(x)})
+    df = pd.read_csv("https://tech-hub-ml.s3.amazonaws.com/master.csv", encoding="ISO-8859-1", converters={'Zip Code': lambda x: str(x)})
 
-    if zipcode[0] in list(df["zipcode"]):
-        features = df.loc[df['zipcode'] == zipcode[0]].values[0]
-        city = features[2]
-        state = features[1]
-        final_features = np.delete(features,[0,1,2,3])
+    print(df.head())
+    if zipcode[0] in list(df["Zip Code"]):
+        features = df.loc[df['Zip Code'] == zipcode[0]].values[0]
+        city = features[3]
+        state = features[2]
+        final_features = np.delete(features,[0,1,2,3,4])
 
         prediction = model.predict([final_features])
 
